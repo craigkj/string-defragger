@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package string.recombination;
 
 import java.io.BufferedReader;
@@ -6,44 +10,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * This class recombines string fragments with overlapping sections that are
- * delimited by ':' into a single string
- * 
+ *
  * @author craigjones
  */
-public class StringRecombinator {
+public class StringRecombiner {
 
     /**
-     * This method takes the absolute path to a file and attempts to recombine
-     * each fragmented line into a single string value.
      * 
-     * @param args the command line arguments - path to file
+     * @param args 
      */
-    public static void main(String[] args) {
+    public void ParseFile(String[] args) {
         try (BufferedReader in = new BufferedReader(new FileReader(args[0]))) {
-        String fragmentProblem;
-        while ((fragmentProblem = in.readLine()) != null) {
-            System.out.println(reassemble(fragmentProblem)); }
-        } catch (Exception e) { 
+            String fragmentProblem;
+            while ((fragmentProblem = in.readLine()) != null) {
+                System.out.println(reassemble(fragmentProblem));
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
     }
 
     /**
-     * Reassembles a series of text fragments into a single string based on
-     * the overlapping regions between them.
-     * 
-     * Assumes the following:
-     *  String is UTF-8 encoded
-     *  No mistakes are contained in the input text
-     *  There is a single unambiguous solution
-     * 
+     * Reassembles a series of text fragments into a single string based on the
+     * overlapping regions between them.
+     *
+     * Assumes the following: String is UTF-8 encoded No mistakes are contained
+     * in the input text There is a single unambiguous solution
+     *
      * @param fragmentProblem - the delimited line of text to be recombined
      * @return recombined - the recombined string
      */
     private static String reassemble(final String fragmentProblem) {
 
-        ArrayList<String> fragments = 
+        ArrayList<String> fragments =
                 new ArrayList<>(Arrays.asList(fragmentProblem.split(":")));
 
         if (fragments.isEmpty()) {
@@ -59,7 +58,7 @@ public class StringRecombinator {
         String overlapping = "";
         int numberOfLoops = 0;
         int maxLoops = fragments.size();
-        
+
         while (fragments.size() > 0 && numberOfLoops < maxLoops) {
             for (final String fragment : fragments) {
 
@@ -81,9 +80,8 @@ public class StringRecombinator {
                 if (recombined.contains(fragment)) {
                     bestOverlap = fragment.length();
                     overlapping = fragment;
-                }
-                // check whether the frament contains the recombined string
-                else if(fragment.contains(recombined)){
+                } // check whether the frament contains the recombined string
+                else if (fragment.contains(recombined)) {
                     bestOverlap = recombined.length();
                     recombined = fragment;
                     overlapping = fragment;
@@ -101,18 +99,16 @@ public class StringRecombinator {
 
     /**
      * Recombine the two strings on the provided overlapping area.
-     * 
-     * Outcomes
-     * 1 - The last 'overlap' characters of str1 match the first 
-     *     'overlap' characters of str2
-     * 2 - The first 'overlap' characters of str2 match the last 
-     *     'overlap' characters of str1
+     *
+     * Outcomes 1 - The last 'overlap' characters of str1 match the first
+     * 'overlap' characters of str2 2 - The first 'overlap' characters of str2
+     * match the last 'overlap' characters of str1
      *
      * @param str1 - the working string
      * @param str2 - to combine with
      * @param overlap - the length of the overlap
-     * @return - The combined string with the overlapping region removed from 
-     *           one of the source strings
+     * @return - The combined string with the overlapping region removed from
+     * one of the source strings
      */
     private static String recombine(String str1, String str2, int overlap) {
 
@@ -120,30 +116,30 @@ public class StringRecombinator {
                 .equals(str2.substring(0, overlap))) {
             // end of 1 matches start of 2
             str2 = str2.substring(overlap, str2.length());
-            
+
             return str1 + str2;
             // check the opposite
         } else if (str2.substring((str2.length() - overlap), str2.length())
                 .equals(str1.substring(0, overlap))) {
             str1 = str1.substring(overlap, str1.length());
-            
+
             return str2 + str1;
         } else {
             // There appears to be no overlap
-            
+
             return str1;
         }
     }
 
     /**
      * Calculates the maximum length of overlapping regions between two strings
-     * 
-     * @param str1 - String to be compared 
+     *
+     * @param str1 - String to be compared
      * @param str2 - String to be compared
      * @return maxOverlap - length of maximum overlap
      */
     private static int overlap(final String str1, final String str2) {
-        
+
         // start at the longest possible length and work down
         int maxOverlap = str2.length() - 1;
         while (!str1.regionMatches(str1.length() - maxOverlap, str2, 0,
@@ -151,35 +147,5 @@ public class StringRecombinator {
             maxOverlap--;
         }
         return maxOverlap;
-    }
-    
-    /**
-     * Basic test cases for this classes methods.
-     * @todo set up unit tests for this
-     */
-    private static void testRecombineMethods(){
-        
-        // Overlap
-        if(overlap("Overlap","lapping") != 3){
-            System.out.println("Overlap - Failure: " + "Overlap lapping");
-        }
-        if(overlap("Test","ting") != 1){
-            System.out.println("Overlap - Failure: " + "Test ting");
-        }
-        if((overlap("These dont","overlap") != 0)){
-            System.out.println("Overlap - Failure: " + "These dont overlap");
-        }
-        // Recombine
-        if(!recombine("Overlap","lapping",3).equals("Overlapping")){
-            System.out.println("FAILURE - Recombine " + "Overlap lapping");
-        }
-        if(!recombine("Test","ting",1).equals("Testing")){
-            System.out.println("FAILURE - Recombine " + "Test ting");
-        }
-        // Reassemble
-        if(!reassemble("O draconia;conian devil! Oh la;h lame sa;saint!")
-                .equals("O draconian devil! Oh lame saint!")){
-            System.out.println("FAILURE - Reassemble example");
-        }
     }
 }
