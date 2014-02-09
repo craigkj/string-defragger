@@ -10,6 +10,7 @@ Recombines fragments of a string that are delimited by ':'. Each line of test.tx
 Run from the command line like... :
 
     cd src
+    java string.recombination.RecombinatorApplication.java
     java string.recombination.StringRecombinator.java
     javac string.recombination.StringRecombinator ../test.txt
 
