@@ -1,0 +1,7 @@
+This broken text:text needs rep:repairing:
+AAB:abc:ABab
+:::
+Non:overlapping:words
+Trail:railing colon:
+here is:Now here is an odd example:is an:an odd example:
+a witty fool th:Better a wi:tty fo:ol than a: foolish w:an a foolish wit:ish wit
