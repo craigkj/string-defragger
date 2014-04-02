@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tests;
 
 import org.junit.Before;
@@ -9,7 +5,7 @@ import org.junit.Test;
 
 /**
  *
- * @author craigjones
+ * @author craigkj
  */
 public class RecombinatorTest {
     
