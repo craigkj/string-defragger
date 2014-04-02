@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package string.recombination;
 
 import java.io.BufferedReader;
@@ -11,12 +7,12 @@ import java.util.Arrays;
 
 /**
  *
- * @author craigjones
+ * @author craigkj
  */
 public class StringRecombiner {
 
     /**
-     * 
+     * Parse incoming file
      * @param args 
      */
     public void ParseFile(String[] args) {
